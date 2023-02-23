@@ -31,28 +31,29 @@ class Student {
 
 // Append Button Action
 btnAppend.addEventListener('click', function () {
-	// Push new Student object into Roster Array
-	roster.push(
-		new Student(
-			inputName.value,
-			inputPhone.value,
-			inputSkydives.value,
-			inputWeight.value,
-			checkPaid.checked
-		)
-	);
-	console.log(`Append button clicked`); //TODO - Maybe remove after test
-	console.log(roster); //TODO - Remove after testing
+	// only IF Name entry is not empty
+	if (inputName.value !== '') {
+		// Push new Student object into Roster Array
+		roster.push(
+			new Student(
+				inputName.value,
+				inputPhone.value,
+				inputSkydives.value,
+				inputWeight.value,
+				checkPaid.checked
+			)
+		);
 
-	// Render Roster Table
-	renderRosterTable();
+		// Render Roster Table
+		renderRosterTable();
 
-	// Clear all input fields
-	inputName.value = null;
-	inputPhone.value = null;
-	inputSkydives.value = null;
-	inputWeight.value = null;
-	checkPaid.checked = false;
+		// Clear all input fields
+		inputName.value = null;
+		inputPhone.value = null;
+		inputSkydives.value = null;
+		inputWeight.value = null;
+		checkPaid.checked = false;
+	}
 });
 
 // Render Roster Table
@@ -65,34 +66,40 @@ function renderRosterTable() {
 		const newRow = document.createElement('tr');
 		newRow.id = `rosterRow${i}`;
 		rosterTable.appendChild(newRow);
+		const currentRow = document.querySelector(`#rosterRow${i}`);
 
 		//new name td
 		const newName = document.createElement('td');
 		newName.innerHTML = roster[i].name;
-		document.querySelector(`#rosterRow${i}`).appendChild(newName);
+		currentRow.appendChild(newName);
 
 		//new phone td
 		const newPhone = document.createElement('td');
 		newPhone.innerHTML = roster[i].phone;
-		document.querySelector(`#rosterRow${i}`).appendChild(newPhone);
+		currentRow.appendChild(newPhone);
 
 		//new skydives td
 		const newSkydives = document.createElement('td');
 		newSkydives.innerHTML = roster[i].skydives;
-		document.querySelector(`#rosterRow${i}`).appendChild(newSkydives);
+		currentRow.appendChild(newSkydives);
 
 		//new weight td
 		const newWeight = document.createElement('td');
 		newWeight.innerHTML = roster[i].weight;
-		document.querySelector(`#rosterRow${i}`).appendChild(newWeight);
+		currentRow.appendChild(newWeight);
 
 		//new paid td
 		const newPaid = document.createElement('td');
-		//generate Paid button if student has not paid
+		//generate Paid button and red row if student has not paid
 		if (roster[i].paid === false) {
-			newPaid.innerHTML = `<button class="btn btn-sm btn-primary">Paid</button>`;
-			document.querySelector(`#rosterRow${i}`).classList.add('table-danger');
+			newPaid.innerHTML = `<button class="btn btn-sm btn-primary" onclick="markAsPaid(${i})">Mark as Paid</button>`;
+			currentRow.classList.add('table-danger');
 		}
-		document.querySelector(`#rosterRow${i}`).appendChild(newPaid);
+		currentRow.appendChild(newPaid);
 	}
+}
+
+// write a function for changing status to paid
+function markAsPaid(index) {
+	console.log('paid button clicked', index);
 }
