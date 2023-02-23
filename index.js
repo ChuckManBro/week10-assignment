@@ -2,14 +2,14 @@
 /*
 
 WEEK 10 CODING ASSIGNMENT
+Using HTML, Bootstrap, and JavaScript create a single page website that contains the following:
+- A Bootstrap styled table representing your choice of data.
+- A Bootstrap styled form that allows a user to add a new row to the table when clicking on submit.
 
 */
 
 // Starter Variables
-const roster = [
-	{ name: 'John Doe', phone: '(208) 123-1234', skydives: 698, weight: 155, paid: true },
-	{ name: 'George Bush', phone: '(208) 321-4321', skydives: 5, weight: 170, paid: false },
-]; //TODO - remove sample objects
+const roster = [];
 const rosterTable = document.querySelector('#rosterTable');
 const inputName = document.querySelector('#inputName');
 const inputPhone = document.querySelector('#inputPhone');
@@ -29,8 +29,8 @@ class Student {
 	}
 }
 
-// Append Button Action
-btnAppend.addEventListener('click', function () {
+// When 'append' button is clicked
+function btnClickAppend() {
 	// only IF Name entry is not empty
 	if (inputName.value !== '') {
 		// Push new Student object into Roster Array
@@ -54,7 +54,7 @@ btnAppend.addEventListener('click', function () {
 		inputWeight.value = null;
 		checkPaid.checked = false;
 	}
-});
+}
 
 // Render Roster Table
 function renderRosterTable() {
@@ -99,7 +99,8 @@ function renderRosterTable() {
 	}
 }
 
-// write a function for changing status to paid
+// Function for when 'mark as paid' button is clicked
 function markAsPaid(index) {
-	console.log('paid button clicked', index);
+	roster[index].paid = true;
+	renderRosterTable();
 }
